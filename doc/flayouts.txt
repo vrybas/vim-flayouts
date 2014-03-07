@@ -25,13 +25,13 @@ COMMANDS                                        *flayouts-commands*
 :GlpullRequest        Open new tab with two-window layout. Left window contains
                       current file, right window contains git-request-pull
                       output (summary of all commits between 'master' and
-                      current branch). And also "All commits" patches.
+                      current branch).
 
                                                 *flayouts-:GlresolveConflict*
-:GlresolveConflict    Open new tab with three-window layout. Two тop windows
-                      contain 'merge' branch and 'HEAD' versions of current
-                      file. Bottom window contains current file with conflict
-                      maks.
+:GlresolveConflict    Open new tab with three-window layout. Top window
+                      conains 'ours' version of current file. Middle window
+                      contains current file with conflict maks. Bottom window
+                      contains 'theirs' version of current file.
 
                                                 *flayouts-:GlprDiff*
 :GlprDiff             Generate output of 'git-request-pull' into a temp file,
