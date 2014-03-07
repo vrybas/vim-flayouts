@@ -84,22 +84,15 @@ endfunction
 function! flayouts#ConflictView()
   tabedit %
   tabmove
-  exe "Gdiff"
-  only
+  exe "Gsdiff"
   windo diffoff
-  split
-  vsplit
-  buffer //2
-  setlocal readonly nomodifiable
-  wincmd l
-  buffer //3
-  setlocal readonly nomodifiable
-  wincmd j
+  wincmd k
 endfunction
 
 function! flayouts#Resolve()
   exe "Gwrite"
   tabclose
+  exe "Gstatus"
 endfunction
 
 " vim:set et sw=2:
