@@ -39,7 +39,8 @@ COMMANDS                                        *flayouts-commands*
 
                                                 *flayouts-:GlopenFromDiff*
 :GlopenFromDiff       Open file containing code chunk under cursor from any
-                      generated 'diff' output.
+                      generated 'diff' output, and run `:Gblame`. Especially
+                      useful from `:GlpullRequest` tab.
 
 ABOUT                                           *flayouts-about*
 
