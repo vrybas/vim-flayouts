@@ -34,9 +34,8 @@ COMMANDS                                        *flayouts-commands*
                       maks.
 
                                                 *flayouts-:GlprDiff*
-:GlprDiff             Generates output of 'git-request-pull' and 'git-log -p'
-                      into a temp file, and shows this temp file in current
-                      window.
+:GlprDiff             Generates output of 'git-request-pull' into a temp file,
+                      and shows this temp file in current window.
 
 ABOUT                                           *flayouts-about*
 

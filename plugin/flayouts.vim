@@ -55,15 +55,7 @@ function! flayouts#PullRequestView()
 endfunction
 
 function! flayouts#PullRequestDiff()
-  let tmpfile = tempname()
-  silent exe '!git request-pull -p master $(git rev-parse --abbrev-ref HEAD) > '.tmpfile
-  silent exe '!echo "                                          " >> '.tmpfile
-  silent exe '!echo "All commits: =============================" >> '.tmpfile
-  silent exe '!echo "                                          " >> '.tmpfile
-  silent exe '!git log -p --stat --reverse $(git rev-parse --verify --quiet master)..$(git rev-parse --verify --quiet HEAD) >> '.tmpfile
-  redraw!
-  exe "e ".tmpfile
-  setlocal bufhidden=wipe filetype=diff
+  exe "Git! request-pull -p master $(git rev-parse --abbrev-ref HEAD)"
 endfunction
 
 function! flayouts#ConflictView()
