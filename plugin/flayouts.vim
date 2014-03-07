@@ -16,7 +16,7 @@ command GlresolveConflict  call flayouts#ConflictView()
 command Glwrite            call flayouts#Resolve()
 
 command GlprDiff           call flayouts#PullRequestDiff()
-command GlopenFromDiff         call flayouts#DiffOpen()
+command GlopenFromDiff     call flayouts#OpenFromDiff()
 
 
 function! flayouts#StatusView()
@@ -73,7 +73,7 @@ function! flayouts#Resolve()
   exe "Gstatus"
 endfunction
 
-function! flayouts#DiffOpen()
+function! flayouts#OpenFromDiff()
   call search('@@','bc')
   exe "normal! ma"
   call search('+++','bc')
@@ -98,12 +98,7 @@ function! flayouts#DiffOpen()
   mark a
   let relative_line_number = @0
   exe 'normal! '.relative_line_number.'j'
-  exe "normal! V'a\<esc>"
-endfunction
-
-function! flayouts#highlightArea()
-  call search("\\%V\\_^","e")
-  return @/
+  exe "normal! V'a"
 endfunction
 
 " vim:set et sw=2:
