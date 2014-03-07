@@ -33,14 +33,6 @@ COMMANDS                                        *flayouts-commands*
                       file. Bottom window contains current file with conflict
                       maks.
 
-                                                *flayouts-:GldiffUnstaged*
-:GldiffUnstaged       Generates output of 'git-diff' into a temp file, and
-                      shows this temp file in current window.
-
-                                                *flayouts-:GldiffStaged*
-:GldiffStaged         Generates output of 'git-diff --cached' into a temp
-                      file, and shows this temp file in current window.
-
                                                 *flayouts-:GlprDiff*
 :GlprDiff             Generates output of 'git-request-pull' and 'git-log -p'
                       into a temp file, and shows this temp file in current

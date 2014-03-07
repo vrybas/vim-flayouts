@@ -15,8 +15,6 @@ command GlpullRequest      call flayouts#PullRequestView()
 command GlresolveConflict  call flayouts#ConflictView()
 command Glwrite            call flayouts#Resolve()
 
-command GldiffUnstaged     call flayouts#GitDiff('unstaged')
-command GldiffStaged       call flayouts#GitDiff('staged')
 command GlprDiff           call flayouts#PullRequestDiff()
 
 
@@ -25,7 +23,7 @@ function! flayouts#StatusView()
   tabmove
   wincmd v
   wincmd l
-  call flayouts#GitDiff('unstaged')
+  exe "Git! diff"
   wincmd h
   exe "Gstatus"
 endfunction
@@ -46,19 +44,6 @@ function! flayouts#Abort()
   else
     echoerr "Warning: not a 'git status' window."
   end
-endfunction
-
-function! flayouts#GitDiff(type)
-  let tmpfile = tempname()
-  let diff_param = ""
-
-  if a:type == 'staged'
-    let diff_param = " --cached"
-  endif
-
-  silent execute 'r !git diff'.diff_param.' > '.tmpfile
-  exe "e ".tmpfile
-  setlocal bufhidden=wipe filetype=diff
 endfunction
 
 function! flayouts#PullRequestView()
