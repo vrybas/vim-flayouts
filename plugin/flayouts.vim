@@ -16,6 +16,7 @@ command GlresolveConflict  call flayouts#ConflictView()
 command Glwrite            call flayouts#Resolve()
 
 command GlprDiff           call flayouts#PullRequestDiff()
+command GlopenFromDiff         call flayouts#DiffOpen()
 
 
 function! flayouts#StatusView()
@@ -70,6 +71,39 @@ function! flayouts#Resolve()
   exe "Gwrite"
   tabclose
   exe "Gstatus"
+endfunction
+
+function! flayouts#DiffOpen()
+  call search('@@','bc')
+  exe "normal! ma"
+  call search('+++','bc')
+  exe "normal! 0f/lvg_y"
+  wincmd h
+  let filename = @0
+  exe "e ".filename
+  wincmd l
+  exe "normal! 'a0"
+  call search('\d')
+  "TODO: line number is not always copied. What if line don't contain ','
+  exe "normal! vf,hy"
+  wincmd h
+  let linenumber = @0
+  exe linenumber
+  exe "Gblame"
+  vertical resize 27
+  wincmd l
+  wincmd l
+  exe "normal! f llf,lvf hy"
+  wincmd h
+  mark a
+  let relative_line_number = @0
+  exe 'normal! '.relative_line_number.'j'
+  exe "normal! V'a\<esc>"
+endfunction
+
+function! flayouts#highlightArea()
+  call search("\\%V\\_^","e")
+  return @/
 endfunction
 
 " vim:set et sw=2:
