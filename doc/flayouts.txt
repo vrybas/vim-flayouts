@@ -1,0 +1,55 @@
+flayouts.txt  Layouts for Fugitive
+
+Author:  Vladimir Rybas <http://vrybas.github.io/>
+License: Same terms as Vim itself (see |license|)
+
+INTRODUCTION                                    *flayouts*
+
+in progress
+
+COMMANDS                                        *flayouts-commands*
+
+
+                                                *flayouts-:Glstatus*
+:Glstatus             Open new tab with three-window layout. Top window
+                      contains `:Gstatus`, bottom window contains current
+                      file, right window contains output of git-diff.
+
+                                                *flayouts-:Glcommit*
+:Glcommit             Perform a commit from *:Glstatus* window, and close tab.
+
+                                                *flayouts-:Glabort*
+:Glabort              Cancel a commit from *:Glstatus* window, and close tab.
+
+                                                *flayouts-:GlpullRequest*
+:GlpullRequest        Open new tab with two-window layout. Left window contains
+                      current file, right window contains git-request-pull
+                      output (summary of all commits between 'master' and
+                      current branch). And also "All commits" patches.
+
+                                                *flayouts-:GlresolveConflict*
+:GlresolveConflict    Open new tab with three-window layout. Two тop windows
+                      contain 'merge' branch and 'HEAD' versions of current
+                      file. Bottom window contains current file with conflict
+                      maks.
+
+                                                *flayouts-:GldiffUnstaged*
+:GldiffUnstaged       Generates output of 'git-diff' into a temp file, and
+                      shows this temp file in current window.
+
+                                                *flayouts-:GldiffStaged*
+:GldiffStaged         Generates output of 'git-diff --cached' into a temp
+                      file, and shows this temp file in current window.
+
+                                                *flayouts-:GlprDiff*
+:GlprDiff             Generates output of 'git-request-pull' and 'git-log -p'
+                      into a temp file, and shows this temp file in current
+                      window.
+
+ABOUT                                           *flayouts-about*
+
+Grab the latest version or report a bug on GitHub:
+
+http://github.com/vrybas/vim-flayouts
+
+ vim:tw=78:et:ft=help:norl:
