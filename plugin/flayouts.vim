@@ -1,6 +1,6 @@
 " flayouts.vim - Layouts for Fugitive
 " Maintainer:   Vladimir Rybas <http://vrybas.github.io/>
-" Version:      0.0.1
+" Version:      0.0.2
 
 if exists('g:loaded_flayouts') || !executable('git') || &cp
   finish
