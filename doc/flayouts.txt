@@ -5,7 +5,12 @@ License: Same terms as Vim itself (see |license|)
 
 INTRODUCTION                                    *flayouts*
 
-in progress
+Flayouts.vim aims to ease work with [Fugitive](github.com/tpope/vim-fugitive)
+by providing window layouts for certain operations, such as:
+
+  * Commit
+  * Pull Request review
+  * Conflict Resolution
 
 COMMANDS                                        *flayouts-commands*
 

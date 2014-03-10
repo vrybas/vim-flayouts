@@ -1,27 +1,54 @@
 # flayouts.vim - Layouts for Fugitive
 
-Flayouts.vim aims ease work with Fugitive by providing window layouts
-for operations such as:
+Flayouts.vim aims to ease work with [Fugitive](https://github.com/tpope/vim-fugitive) by providing window
+layouts for certain operations, such as:
 
   * Commit
+
   * Pull Request review
+
   * Conflict Resolution
 
-##### :Glstatus
+#### :Glstatus - a "Commit" layout.
 
-![](https://github-camo.global.ssl.fastly.net/a245b1db50583c6ae58139fa8bc1cffb65b2efcc/687474703a2f2f662e636c2e6c792f6974656d732f32683359337432423175326a32333343336731662f53637265656e25323053686f74253230323031342d30332d3037253230617425323031312e31372e3335253230414d2e706e67)
+- Run `:Glstatus`
+- Review diff
+- Jump to "status" window
+- Press `-` to add/remove files
+- Run `:Git diff` or `:Git diff --cached` in a diff window to update
+  diff
+- Press `C` to enter a commit message
+- Run `:Glcommit` to commit or `:Glabort` to cancel commit and close tab
 
-##### :GlpullRequest
+![](http://f.cl.ly/items/0a0H2o290j2P0b40233M/Screen%20Shot%202014-03-10%20at%208.29.10%20AM.png)
 
-##### :GlresolveConflict
+##### :GlpullRequest - a "Pull Request Review" layout.
+
+- Run `:GlpullRequest`
+- Review diff
+- Run `:GlopenFromDiff` on code chunk to open corresponding file
+- Press `o` on commit SHA to open commit where chunk was added
+
+![](http://f.cl.ly/items/1j0Q0P2s390y0T0x1W44/Screen_Shot_2014-03-10_at_8_35_40_AM.png)
+
+##### :GlresolveConflict - a "Resolve Conflict" layout.
+
+- Run `:GlresolveConflict`
+- Compare "HEAD"(ours) versions and "MERGE"(theirs) version
+- Resolve conflict on "both modified" version
+- Run `:Glwrite` on "both modified" version to add file to index and
+  close tab
+
+![](http://f.cl.ly/items/310G3x140d0y0w3O0c2E/Screen_Shot_2014-03-10_at_8_44_07_AM.png)
+
 
 All available commands and their description can be found here:
-
 https://github.com/vrybas/vim-flayouts/blob/master/doc/flayouts.txt
 
 ## Installation
 
 ```vimrc
+Bundle 'tpope/vim-fugitive'
 Bundle 'vrybas/vim-flayouts'
 ```
 
