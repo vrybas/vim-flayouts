@@ -47,6 +47,16 @@ COMMANDS                                        *flayouts-commands*
                       generated 'diff' output, and run `:Gblame`. Especially
                       useful from `:GlpullRequest` tab.
 
+OPTIONS                                         *flayouts-options*
+
+<
+let g:flayouts_base_branch = "origin/master"
+<
+Default: "origin/master"
+
+Used for :GlpullRequest and :GlprDiff to run "requiest-pull" against specified
+branch.
+
 ABOUT                                           *flayouts-about*
 
 Grab the latest version or report a bug on GitHub:

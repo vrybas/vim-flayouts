@@ -7,6 +7,10 @@ if exists('g:loaded_flayouts') || !executable('git') || &cp
 endif
 let g:loaded_flayouts = 1
 
+if !exists('g:flayouts_base_branch')
+  let g:flayouts_base_branch = 'origin/master'
+endif
+
 command Glstatus           call flayouts#StatusView()
 command Glcommit           call flayouts#Commit()
 command Glabort            call flayouts#Abort()
@@ -56,7 +60,7 @@ function! flayouts#PullRequestView()
 endfunction
 
 function! flayouts#PullRequestDiff()
-  exe "Git! request-pull -p master $(git rev-parse --abbrev-ref HEAD)"
+  exe "Git! request-pull -p ".g:flayouts_base_branch." $(git rev-parse --abbrev-ref HEAD)"
 endfunction
 
 function! flayouts#ConflictView()
