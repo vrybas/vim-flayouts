@@ -26,6 +26,11 @@ COMMANDS                                        *flayouts-commands*
                                                 *flayouts-:Glabort*
 :Glabort              Cancel a commit from *:Glstatus* window, and close tab.
 
+                                                *flayouts-:Glc*
+:Glc                  If executed from :Glstatus window, runs :Glcommit.
+                      Otherwise, runs :Glstatus. So a single key mapping can
+                      show status, and perform a commit.
+
                                                 *flayouts-:GlpullRequest*
 :GlpullRequest        Open new tab with two-window layout. Left window contains
                       current file, right window contains git-request-pull

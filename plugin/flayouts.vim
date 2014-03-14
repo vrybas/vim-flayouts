@@ -15,6 +15,8 @@ command Glstatus                call flayouts#StatusView()
 command Glcommit                call flayouts#Commit()
 command Glabort                 call flayouts#Abort()
 
+command Glc                     call flayouts#Glc()
+
 command -nargs=* GlpullRequest  call flayouts#PullRequestView(<f-args>)
 command -nargs=* GlprDiff       call flayouts#PullRequestDiff(<f-args>)
 
@@ -42,6 +44,14 @@ function! flayouts#Commit()
     tabclose
   else
     echoerr "Warning: not a COMMIT_EDITMSG window. Run :Flstatus instead."
+  endif
+endfunction
+
+function! flayouts#Glc()
+  if bufname('%') =~ 'COMMIT_EDITMSG'
+    call flayouts#Commit()
+  else
+    call flayouts#StatusView()
   endif
 endfunction
 
