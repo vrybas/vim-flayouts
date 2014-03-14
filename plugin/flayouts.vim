@@ -18,6 +18,9 @@ command Glabort                 call flayouts#Abort()
 command -nargs=* GlpullRequest  call flayouts#PullRequestView(<f-args>)
 command -nargs=* GlprDiff       call flayouts#PullRequestDiff(<f-args>)
 
+command -nargs=* GllogPatch     call flayouts#GitLogCurrentFile(<f-args>)
+command -nargs=* GllogPatchDiff call flayouts#GitLogCurrentFileDiff(<f-args>)
+
 command GlopenFromDiff          call flayouts#OpenFromDiff()
 
 command GlresolveConflict       call flayouts#ConflictView()
@@ -64,6 +67,27 @@ function! flayouts#PullRequestDiff(...)
   exe "Git! request-pull -p ".base_branch." $(git rev-parse --abbrev-ref HEAD)"
 endfunction
 
+function! flayouts#GitLogCurrentFile(...)
+  if &filetype == 'git'
+    let filename = flayouts#get_chunk_filename()
+    wincmd s
+    wincmd j
+    exe "e ".filename
+  else
+    tabedit %
+    tabmove
+    wincmd v
+    wincmd l
+  end
+
+  call call(function("flayouts#GitLogCurrentFileDiff"), a:000)
+endfunction
+
+function! flayouts#GitLogCurrentFileDiff(...)
+  let number_of_commits = exists('a:1') ? a:1 : 100
+  exe "Git! log -p --stat -".number_of_commits." %"
+endfunction
+
 function! flayouts#ConflictView()
   tabedit %
   tabmove
@@ -79,12 +103,8 @@ function! flayouts#Resolve()
 endfunction
 
 function! flayouts#OpenFromDiff()
-  call search('@@','bc')
-  exe "normal! ma"
-  call search('+++','bc')
-  exe "normal! 0f/lvg_y"
+  let filename = flayouts#get_chunk_filename()
   wincmd h
-  let filename = @0
   exe "e ".filename
   wincmd l
   exe "normal! 'a0"
@@ -104,6 +124,14 @@ function! flayouts#OpenFromDiff()
   let relative_line_number = @0
   exe 'normal! '.relative_line_number.'j'
   exe "normal! V'a"
+endfunction
+
+function! flayouts#get_chunk_filename()
+  call search('@@','bc')
+  exe "normal! ma"
+  call search('+++','bc')
+  exe "normal! 0f/lvg_y"
+  return @0
 endfunction
 
 " vim:set et sw=2:
