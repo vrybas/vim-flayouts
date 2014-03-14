@@ -15,11 +15,11 @@ command Glstatus           call flayouts#StatusView()
 command Glcommit           call flayouts#Commit()
 command Glabort            call flayouts#Abort()
 
-command GlpullRequest      call flayouts#PullRequestView()
+command -nargs=* GlpullRequest      call flayouts#PullRequestView(<f-args>)
 command GlresolveConflict  call flayouts#ConflictView()
 command Glwrite            call flayouts#Resolve()
 
-command GlprDiff           call flayouts#PullRequestDiff()
+command -nargs=* GlprDiff  call flayouts#PullRequestDiff(<f-args>)
 command GlopenFromDiff     call flayouts#OpenFromDiff()
 
 
@@ -51,16 +51,17 @@ function! flayouts#Abort()
   end
 endfunction
 
-function! flayouts#PullRequestView()
+function! flayouts#PullRequestView(...)
   tabedit %
   tabmove
   wincmd v
   wincmd l
-  call flayouts#PullRequestDiff()
+  call call(function("flayouts#PullRequestDiff"), a:000)
 endfunction
 
-function! flayouts#PullRequestDiff()
-  exe "Git! request-pull -p ".g:flayouts_base_branch." $(git rev-parse --abbrev-ref HEAD)"
+function! flayouts#PullRequestDiff(...)
+  let base_branch = exists('a:1') ? a:1 : g:flayouts_base_branch
+  exe "Git! request-pull -p ".base_branch." $(git rev-parse --abbrev-ref HEAD)"
 endfunction
 
 function! flayouts#ConflictView()

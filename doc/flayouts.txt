@@ -29,8 +29,10 @@ COMMANDS                                        *flayouts-commands*
                                                 *flayouts-:GlpullRequest*
 :GlpullRequest        Open new tab with two-window layout. Left window contains
                       current file, right window contains git-request-pull
-                      output (summary of all commits between 'master' and
-                      current branch).
+                      output (summary of all commits between base branch and
+                      current branch). Base branch can be specified as a
+                      parameter (:GlpullRequest origin/develop), or with
+                      global configuration variable `g:flayouts_base_branch`
 
                                                 *flayouts-:GlresolveConflict*
 :GlresolveConflict    Open new tab with three-window layout. Top window
@@ -41,6 +43,9 @@ COMMANDS                                        *flayouts-commands*
                                                 *flayouts-:GlprDiff*
 :GlprDiff             Generate output of 'git-request-pull' into a temp file,
                       and shows this temp file in current window.
+                      Base branch can be specified as a parameter
+                      (:GlprDiff origin/develop), or with global configuration
+                      variable `g:flayouts_base_branch`
 
                                                 *flayouts-:GlopenFromDiff*
 :GlopenFromDiff       Open file containing code chunk under cursor from any
@@ -49,6 +54,7 @@ COMMANDS                                        *flayouts-commands*
 
 OPTIONS                                         *flayouts-options*
 
+flayouts_base_branch                            *g:flayouts_base_branch*
 <
 let g:flayouts_base_branch = "origin/master"
 <
