@@ -11,17 +11,17 @@ if !exists('g:flayouts_base_branch')
   let g:flayouts_base_branch = 'origin/master'
 endif
 
-command Glstatus           call flayouts#StatusView()
-command Glcommit           call flayouts#Commit()
-command Glabort            call flayouts#Abort()
+command Glstatus                call flayouts#StatusView()
+command Glcommit                call flayouts#Commit()
+command Glabort                 call flayouts#Abort()
 
-command -nargs=* GlpullRequest      call flayouts#PullRequestView(<f-args>)
-command GlresolveConflict  call flayouts#ConflictView()
-command Glwrite            call flayouts#Resolve()
+command -nargs=* GlpullRequest  call flayouts#PullRequestView(<f-args>)
+command -nargs=* GlprDiff       call flayouts#PullRequestDiff(<f-args>)
 
-command -nargs=* GlprDiff  call flayouts#PullRequestDiff(<f-args>)
-command GlopenFromDiff     call flayouts#OpenFromDiff()
+command GlopenFromDiff          call flayouts#OpenFromDiff()
 
+command GlresolveConflict       call flayouts#ConflictView()
+command Glwrite                 call flayouts#Resolve()
 
 function! flayouts#StatusView()
   tabedit %
