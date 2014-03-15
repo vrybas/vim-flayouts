@@ -87,22 +87,28 @@ endfunction
 function! flayouts#GitLogCurrentFile(...)
   if &filetype == 'git'
     let filename = flayouts#get_chunk_filename()
+    let base_branch = exists('a:1') ? a:1 : g:flayouts_base_branch
+    let head_branch = substitute(system("git rev-parse --abbrev-ref HEAD"), "\n", "", "")
     wincmd s
     wincmd j
     exe "e ".filename
+    call flayouts#GitLogCurrentChunkDiff(base_branch,head_branch)
   else
     tabedit %
     tabmove
     wincmd v
     wincmd l
+    call call(function("flayouts#GitLogCurrentFileDiff"), a:000)
   end
-
-  call call(function("flayouts#GitLogCurrentFileDiff"), a:000)
 endfunction
 
 function! flayouts#GitLogCurrentFileDiff(...)
   let number_of_commits = exists('a:1') ? a:1 : 100
   exe "Git! log -p --stat -".number_of_commits." %"
+endfunction
+
+function! flayouts#GitLogCurrentChunkDiff(base_branch, head_branch)
+  exe "Git! log -p --stat ".a:base_branch."..".a:head_branch." %"
 endfunction
 
 function! flayouts#ConflictView()
