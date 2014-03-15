@@ -74,7 +74,11 @@ endfunction
 
 function! flayouts#PullRequestDiff(...)
   let base_branch = exists('a:1') ? a:1 : g:flayouts_base_branch
-  exe "Git! request-pull -p ".base_branch." $(git rev-parse --abbrev-ref HEAD)"
+  silent exe "Git! request-pull -p ".base_branch." $(git rev-parse --abbrev-ref HEAD)"
+  setlocal modifiable
+  silent exe '$-2,$d'
+  silent exe '1,17d'
+  setlocal modifiable
 endfunction
 
 function! flayouts#GitLogCurrentFile(...)
