@@ -73,13 +73,13 @@ function! flayouts#PullRequestView(...)
 endfunction
 
 function! flayouts#PullRequestDiff(...)
-  let current_branch = system("git rev-parse --abbrev-ref HEAD")
+  let head_branch = system("git rev-parse --abbrev-ref HEAD")
   let base_branch = exists('a:1') ? a:1 : g:flayouts_base_branch
-  silent exe "Git! request-pull -p ".base_branch." ".current_branch
+  silent exe "Git! request-pull -p ".base_branch." ".head_branch
   setlocal modifiable
   silent exe '$-2,$d'
   silent exe '1,17d'
-  let header = substitute('Summary of commits between "'.current_branch.'" and "'.base_branch.'"', "\n", "", "")
+  let header = substitute('Summary of commits between "'.head_branch.'" and "'.base_branch.'"', "\n", "", "")
   call setline(1, header)
   setlocal nomodifiable
 endfunction
