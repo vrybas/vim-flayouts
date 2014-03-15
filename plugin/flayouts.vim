@@ -86,12 +86,12 @@ endfunction
 
 function! flayouts#GitLogCurrentFile(...)
   if &filetype == 'git'
-    let filename = flayouts#get_chunk_filename()
+    let chunk_filename = flayouts#chunk_filename()
     let base_branch = exists('a:1') ? a:1 : g:flayouts_base_branch
     let head_branch = substitute(system("git rev-parse --abbrev-ref HEAD"), "\n", "", "")
     wincmd s
     wincmd j
-    exe "e ".filename
+    exe "e ".chunk_filename
     call flayouts#GitLogCurrentChunkDiff(base_branch,head_branch)
   else
     tabedit %
@@ -126,34 +126,37 @@ function! flayouts#Resolve()
 endfunction
 
 function! flayouts#OpenFromDiff()
-  let filename = flayouts#get_chunk_filename()
+  let chunk_filename    = flayouts#chunk_filename()
+  let chunk_start_line  = flayouts#chunk_start_line()
+  let chunk_end_line    = flayouts#chunk_end_line()
+
   wincmd h
-  exe "e ".filename
-  wincmd l
-  exe "normal! 'a0"
-  call search('\d')
-  "TODO: line number is not always copied. What if line don't contain ','
-  exe "normal! vf,hy"
-  wincmd h
-  let linenumber = @0
-  exe linenumber
+  exe "e ".chunk_filename
   exe "Gblame"
   vertical resize 27
   wincmd l
-  wincmd l
-  exe "normal! f llf,lvf hy"
-  wincmd h
+  exe chunk_start_line
   mark a
-  let relative_line_number = @0
-  exe 'normal! '.relative_line_number.'j'
+  exe 'normal! '.chunk_end_line.'j'
   exe "normal! V'a"
 endfunction
 
-function! flayouts#get_chunk_filename()
+function! flayouts#chunk_filename()
   call search('@@','bc')
   exe "normal! ma"
   call search('+++','bc')
   exe "normal! 0f/lvg_y"
+  return @0
+endfunction
+
+function! flayouts#chunk_start_line()
+  call search('\d')
+  exe "normal! vf,hy"
+  return @0
+endfunction
+
+function! flayouts#chunk_end_line()
+  exe "normal! f llf,lvf hy"
   return @0
 endfunction
 
