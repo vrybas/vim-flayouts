@@ -17,11 +17,11 @@ command Glabort                   call flayouts#Abort()
 
 command Glc                       call flayouts#Glc()
 
-command -nargs=* GlpullRequestSummary    call flayouts#PullRequestSummary(<f-args>)
-command -nargs=* GlpullRequestSummaryTab call flayouts#PullRequestSummaryTab(<f-args>)
+command -nargs=* GlpullRequestSummary     call flayouts#PullRequestSummary(<f-args>)
+command -nargs=* GlpullRequestSummaryTab  call flayouts#PullRequestSummaryTab(<f-args>)
 
-command -nargs=* GlpullRequestCommits      call flayouts#PullRequestCommits(<f-args>)
-command -nargs=* GlpullRequestCommitsTab   call flayouts#PullRequestCommitsTab(<f-args>)
+command -nargs=* GlpullRequestCommits     call flayouts#PullRequestCommits(<f-args>)
+command -nargs=* GlpullRequestCommitsTab  call flayouts#PullRequestCommitsTab(<f-args>)
 
 command -nargs=* GllogPatch       call flayouts#LogPatch(<f-args>)
 command -nargs=* GllogPatchTab    call flayouts#LogPatchTab(<f-args>)
