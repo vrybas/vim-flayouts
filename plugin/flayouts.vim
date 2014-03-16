@@ -96,7 +96,7 @@ function! flayouts#LogPatchPr()
   let base_branch = exists('a:1') ? a:1 : g:flayouts_base_branch
   let head_branch = substitute(system("git rev-parse --abbrev-ref HEAD"), "\n", "", "")
 
-  exe "Git! log -p --stat ".base_branch."..".head_branch." %"
+  exe "Git! log -p --reverse --stat ".base_branch."..".head_branch." %"
 endfunction
 
 function! flayouts#LogPatchPrTab()
