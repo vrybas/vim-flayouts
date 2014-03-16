@@ -23,6 +23,9 @@ command -nargs=* GlprDiff       call flayouts#PullRequestDiff(<f-args>)
 command -nargs=* GllogPatch     call flayouts#GitLogCurrentFile(<f-args>)
 command -nargs=* GllogPatchDiff call flayouts#GitLogCurrentFileDiff(<f-args>)
 
+command GllogPatchPr            call flayouts#GitLogCurrentFilePr()
+command GllogPatchDiffPr        call flayouts#GitLogCurrentFileDiffPr()
+
 command GlopenFromDiff          call flayouts#OpenFromDiff()
 
 command GlresolveConflict       call flayouts#ConflictView()
@@ -87,19 +90,33 @@ endfunction
 function! flayouts#GitLogCurrentFile(...)
   if &filetype == 'git'
     let chunk_filename = flayouts#chunk_filename()
-    let base_branch = exists('a:1') ? a:1 : g:flayouts_base_branch
-    let head_branch = substitute(system("git rev-parse --abbrev-ref HEAD"), "\n", "", "")
     wincmd s
     wincmd j
     exe "e ".chunk_filename
-    call flayouts#GitLogCurrentChunkDiff(base_branch,head_branch)
   else
     tabedit %
     tabmove
     wincmd v
     wincmd l
-    call call(function("flayouts#GitLogCurrentFileDiff"), a:000)
   end
+
+    call call(function("flayouts#GitLogCurrentFileDiff"), a:000)
+endfunction
+
+function! flayouts#GitLogCurrentFilePr()
+  if &filetype == 'git'
+    let chunk_filename = flayouts#chunk_filename()
+    wincmd s
+    wincmd j
+    exe "e ".chunk_filename
+  else
+    tabedit %
+    tabmove
+    wincmd v
+    wincmd l
+  end
+
+  call flayouts#GitLogCurrentFileDiffPr()
 endfunction
 
 function! flayouts#GitLogCurrentFileDiff(...)
@@ -107,8 +124,11 @@ function! flayouts#GitLogCurrentFileDiff(...)
   exe "Git! log -p --stat -".number_of_commits." %"
 endfunction
 
-function! flayouts#GitLogCurrentChunkDiff(base_branch, head_branch)
-  exe "Git! log -p --stat ".a:base_branch."..".a:head_branch." %"
+function! flayouts#GitLogCurrentFileDiffPr()
+  let base_branch = exists('a:1') ? a:1 : g:flayouts_base_branch
+  let head_branch = substitute(system("git rev-parse --abbrev-ref HEAD"), "\n", "", "")
+
+  exe "Git! log -p --stat ".base_branch."..".head_branch." %"
 endfunction
 
 function! flayouts#ConflictView()
