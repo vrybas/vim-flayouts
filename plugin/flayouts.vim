@@ -32,10 +32,7 @@ command GlresolveConflictTab      call flayouts#ConflictView()
 command Glwrite                   call flayouts#Resolve()
 
 function! flayouts#StatusTab()
-  tabedit %
-  tabmove
-  wincmd v
-  wincmd l
+  call flayouts#tabvsplit()
   exe "Git! diff"
   wincmd h
   exe "Gstatus"
@@ -80,10 +77,7 @@ function! flayouts#PullRequest(...)
 endfunction
 
 function! flayouts#PullRequestTab(...)
-  tabedit %
-  tabmove
-  wincmd v
-  wincmd l
+  call flayouts#tabvsplit()
   call call(function("flayouts#PullRequest"), a:000)
 endfunction
 
@@ -99,10 +93,7 @@ function! flayouts#LogPatchTab(...)
     wincmd j
     exe "e ".chunk_filename
   else
-    tabedit %
-    tabmove
-    wincmd v
-    wincmd l
+    call flayouts#tabvsplit()
   end
 
     call call(function("flayouts#LogPatch"), a:000)
@@ -123,10 +114,7 @@ function! flayouts#LogPatchPrTab()
     wincmd j
     exe "e ".chunk_filename
   else
-    tabedit %
-    tabmove
-    wincmd v
-    wincmd l
+    call flayouts#tabvsplit()
   end
 
   call flayouts#LogPatchPr()
@@ -177,6 +165,13 @@ endfunction
 function! flayouts#chunk_end_line()
   exe "normal! f llf,lvf hy"
   return @0
+endfunction
+
+function! flayouts#tabvsplit()
+  tabedit %
+  tabmove
+  wincmd v
+  wincmd l
 endfunction
 
 " vim:set et sw=2:
