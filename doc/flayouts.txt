@@ -15,58 +15,60 @@ by providing window layouts for certain operations, such as:
 COMMANDS                                        *flayouts-commands*
 
 
-                                                *flayouts-:Glstatus*
-:Glstatus             Open new tab with three-window layout. Top window
+:GlstatusTab                                             *flayouts-:GlstatusTab*
+                      Open new tab with three-window layout. Top window
                       contains `:Gstatus`, bottom window contains current
                       file, right window contains output of git-diff.
 
-                                                *flayouts-:Glcommit*
-:Glcommit             Perform a commit from *:Glstatus* window, and close tab.
+:Glcommit                                                   *flayouts-:Glcommit*
+                      Perform a commit from `:Glstatus` window, and close tab.
 
-                                                *flayouts-:Glabort*
-:Glabort              Cancel a commit from *:Glstatus* window, and close tab.
+:Glabort                                                     *flayouts-:Glabort*
+                      Cancel a commit from `:Glstatus` window, and close tab.
 
-                                                *flayouts-:Glc*
-:Glc                  If executed from :Glstatus window, runs :Glcommit.
+:Glc                                                             *flayouts-:Glc*
+                      If executed from :Glstatus window, runs :Glcommit.
                       Otherwise, runs :Glstatus. So a single key mapping can
                       show status, and perform a commit.
 
-                                                *flayouts-:GlpullRequest*
-:GlpullRequest        Open new tab with two-window layout. Left window contains
+:GlpullRequestSummaryTab [{branch}]          *flayouts-:GlpullRequestSummaryTab*
+:GlpullRequestSummary [{branch}]
+                      Open new tab with two-window layout. Left window contains
                       current file, right window contains git-request-pull
                       output (summary of all commits between base branch and
                       current branch). Base branch can be specified as a
-                      parameter (:GlpullRequest origin/develop), or with
-                      global configuration variable `g:flayouts_base_branch`
+                      parameter, or with global configuration variable
+                      `g:flayouts_base_branch`
 
-                                                *flayouts-:GlresolveConflict*
-:GlresolveConflict    Open new tab with three-window layout. Top window
+:GlpullRequestCommitsTab [{branch}]          *flayouts-:GlpullRequestCommitsTab*
+:GlpullRequestCommits [{branch}]
+                      Open new tab with two-window layout. Left window contains
+                      current file, right window contains log of all commits
+                      between base branch and current branch. Base branch can be
+                      specified as a parameter, or with global configuration
+                      variable `g:flayouts_base_branch`
+
+:GllogPatchTab [{number}]                              *flayouts-:GllogPatchTab*
+:GllogPatch [{number}]
+                      Open new tab with two-window layout. Left window contains
+                      current file, right window contains log of {number}
+                      commits of current file. Default is 100 commits.
+
+:GlresolveConflictTab                           *flayouts-:GlresolveConflictTab*
+                      Open new tab with three-window layout. Top window
                       conains 'ours' version of current file. Middle window
                       contains current file with conflict maks. Bottom window
                       contains 'theirs' version of current file.
 
-                                                *flayouts-:GlprDiff*
-:GlprDiff             Generate output of 'git-request-pull' into a temp file,
-                      and show this temp file in current window.
-                      Base branch can be specified as a parameter
-                      (:GlprDiff origin/develop), or with global configuration
-                      variable `g:flayouts_base_branch`
+:Glwrite                                        *flayouts-:Glwrite*
+                      Adds current file to index and closes tab (should be
+                      used with `:GlresolveConflictTab`)
 
-                                                *flayouts-:GlopenFromDiff*
-:GlopenFromDiff       Open file containing code chunk under cursor from any
-                      generated 'diff' output, and run `:Gblame`. Especially
-                      useful from `:GlpullRequest` tab.
 
-                                                *flayouts-:GllogPatch*
-:GllogPatch           Open 'git log --patch' of current file in new tab. Or,
-                      if run from any generated diff, will run
-                      'git log --patch' on file, containing code chunk under
-                      cursor and show in horizontal split.
+:GlopenFromDiff                                       *flayouts-:GlopenFromDiff*
+                      Open file containing code chunk under cursor from any
+                      generated 'diff' output in vertical split.
 
-                                                *flayouts-:GllogPatchDiff*
-:GllogPatchDiff       Generate output of 'git log --patch' of current file
-                      into a temp file, and show this temp file in current
-                      window.
 
 OPTIONS                                         *flayouts-options*
 
