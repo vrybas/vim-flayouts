@@ -120,9 +120,11 @@ function! flayouts#Resolve()
 endfunction
 
 function! flayouts#OpenFromDiff()
+  mark z
   let chunk_filename    = flayouts#chunk_filename()
   let chunk_start_line  = flayouts#chunk_start_line()
   let chunk_end_line    = flayouts#chunk_end_line()
+  exe "normal! V'z"
 
   only
   wincmd v
