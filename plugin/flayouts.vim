@@ -20,11 +20,11 @@ command Glc                       call flayouts#Glc()
 command -nargs=* GlpullRequest    call flayouts#PullRequest(<f-args>)
 command -nargs=* GlpullRequestTab call flayouts#PullRequestTab(<f-args>)
 
+command GlpullRequestCommits      call flayouts#PullRequestCommits()
+command GlpullRequestCommitsTab   call flayouts#PullRequestCommitsTab()
+
 command -nargs=* GllogPatch       call flayouts#LogPatch(<f-args>)
 command -nargs=* GllogPatchTab    call flayouts#LogPatchTab(<f-args>)
-
-command GllogPatchPr              call flayouts#LogPatchPr()
-command GllogPatchPrTab           call flayouts#LogPatchPrTab()
 
 command GlopenFromDiff            call flayouts#OpenFromDiff()
 
@@ -92,16 +92,16 @@ function! flayouts#LogPatchTab(...)
   call call(function("flayouts#LogPatch"), a:000)
 endfunction
 
-function! flayouts#LogPatchPr()
+function! flayouts#PullRequestCommits()
   let base_branch = exists('a:1') ? a:1 : g:flayouts_base_branch
   let head_branch = substitute(system("git rev-parse --abbrev-ref HEAD"), "\n", "", "")
 
   exe "Git! log -p --reverse --stat ".base_branch."..".head_branch." %"
 endfunction
 
-function! flayouts#LogPatchPrTab()
+function! flayouts#PullRequestCommitsTab()
   call flayouts#tabvsplit()
-  call flayouts#LogPatchPr()
+  call flayouts#PullRequestCommits()
 endfunction
 
 
