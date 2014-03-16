@@ -141,6 +141,8 @@ function! flayouts#OpenFromDiff()
   let chunk_start_line  = flayouts#chunk_start_line()
   let chunk_end_line    = flayouts#chunk_end_line()
 
+  only
+  wincmd v
   wincmd h
   exe "e ".chunk_filename
   exe chunk_start_line
