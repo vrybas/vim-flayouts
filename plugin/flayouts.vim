@@ -17,8 +17,8 @@ command Glabort                   call flayouts#Abort()
 
 command Glc                       call flayouts#Glc()
 
-command -nargs=* GlpullRequest    call flayouts#PullRequest(<f-args>)
-command -nargs=* GlpullRequestTab call flayouts#PullRequestTab(<f-args>)
+command -nargs=* GlpullRequestSummary    call flayouts#PullRequestSummary(<f-args>)
+command -nargs=* GlpullRequestSummaryTab call flayouts#PullRequestSummaryTab(<f-args>)
 
 command GlpullRequestCommits      call flayouts#PullRequestCommits()
 command GlpullRequestCommitsTab   call flayouts#PullRequestCommitsTab()
@@ -64,7 +64,7 @@ function! flayouts#Abort()
   end
 endfunction
 
-function! flayouts#PullRequest(...)
+function! flayouts#PullRequestSummary(...)
   let head_branch = system("git rev-parse --abbrev-ref HEAD")
   let base_branch = exists('a:1') ? a:1 : g:flayouts_base_branch
   silent exe "Git! request-pull -p ".base_branch." ".head_branch
@@ -76,9 +76,9 @@ function! flayouts#PullRequest(...)
   setlocal nomodifiable
 endfunction
 
-function! flayouts#PullRequestTab(...)
+function! flayouts#PullRequestSummaryTab(...)
   call flayouts#tabvsplit()
-  call call(function("flayouts#PullRequest"), a:000)
+  call call(function("flayouts#PullRequestSummary"), a:000)
 endfunction
 
 function! flayouts#LogPatch(...)
