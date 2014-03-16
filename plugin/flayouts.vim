@@ -20,8 +20,8 @@ command Glc                       call flayouts#Glc()
 command -nargs=* GlpullRequestSummary    call flayouts#PullRequestSummary(<f-args>)
 command -nargs=* GlpullRequestSummaryTab call flayouts#PullRequestSummaryTab(<f-args>)
 
-command GlpullRequestCommits      call flayouts#PullRequestCommits()
-command GlpullRequestCommitsTab   call flayouts#PullRequestCommitsTab()
+command -nargs=* GlpullRequestCommits      call flayouts#PullRequestCommits(<f-args>)
+command -nargs=* GlpullRequestCommitsTab   call flayouts#PullRequestCommitsTab(<f-args>)
 
 command -nargs=* GllogPatch       call flayouts#LogPatch(<f-args>)
 command -nargs=* GllogPatchTab    call flayouts#LogPatchTab(<f-args>)
@@ -92,16 +92,16 @@ function! flayouts#LogPatchTab(...)
   call call(function("flayouts#LogPatch"), a:000)
 endfunction
 
-function! flayouts#PullRequestCommits()
+function! flayouts#PullRequestCommits(...)
   let base_branch = exists('a:1') ? a:1 : g:flayouts_base_branch
   let head_branch = substitute(system("git rev-parse --abbrev-ref HEAD"), "\n", "", "")
 
-  exe "Git! log -p --reverse --stat ".base_branch."..".head_branch." %"
+  exe "Git! log -p --reverse --stat ".base_branch."..".head_branch
 endfunction
 
-function! flayouts#PullRequestCommitsTab()
+function! flayouts#PullRequestCommitsTab(...)
   call flayouts#tabvsplit()
-  call flayouts#PullRequestCommits()
+  call call(function("flayouts#PullRequestCommits"), a:000)
 endfunction
 
 
