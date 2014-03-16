@@ -88,16 +88,8 @@ function! flayouts#LogPatch(...)
 endfunction
 
 function! flayouts#LogPatchTab(...)
-  if &filetype == 'git'
-    let chunk_filename = flayouts#chunk_filename()
-    wincmd s
-    wincmd j
-    exe "e ".chunk_filename
-  else
-    call flayouts#tabvsplit()
-  end
-
-    call call(function("flayouts#LogPatch"), a:000)
+  call flayouts#tabvsplit()
+  call call(function("flayouts#LogPatch"), a:000)
 endfunction
 
 function! flayouts#LogPatchPr()
@@ -107,17 +99,8 @@ function! flayouts#LogPatchPr()
   exe "Git! log -p --stat ".base_branch."..".head_branch." %"
 endfunction
 
-
 function! flayouts#LogPatchPrTab()
-  if &filetype == 'git'
-    let chunk_filename = flayouts#chunk_filename()
-    wincmd s
-    wincmd j
-    exe "e ".chunk_filename
-  else
-    call flayouts#tabvsplit()
-  end
-
+  call flayouts#tabvsplit()
   call flayouts#LogPatchPr()
 endfunction
 
