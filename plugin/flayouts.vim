@@ -11,27 +11,27 @@ if !exists('g:flayouts_base_branch')
   let g:flayouts_base_branch = 'origin/master'
 endif
 
-command Glstatus                call flayouts#StatusView()
-command Glcommit                call flayouts#Commit()
-command Glabort                 call flayouts#Abort()
+command GlstatusTab               call flayouts#StatusTab()
+command Glcommit                  call flayouts#Commit()
+command Glabort                   call flayouts#Abort()
 
-command Glc                     call flayouts#Glc()
+command Glc                       call flayouts#Glc()
 
-command -nargs=* GlpullRequest  call flayouts#PullRequestView(<f-args>)
-command -nargs=* GlprDiff       call flayouts#PullRequestDiff(<f-args>)
+command -nargs=* GlpullRequest    call flayouts#PullRequest(<f-args>)
+command -nargs=* GlpullRequestTab call flayouts#PullRequestTab(<f-args>)
 
-command -nargs=* GllogPatch     call flayouts#GitLogCurrentFile(<f-args>)
-command -nargs=* GllogPatchDiff call flayouts#GitLogCurrentFileDiff(<f-args>)
+command -nargs=* GllogPatch       call flayouts#LogPatch(<f-args>)
+command -nargs=* GllogPatchTab    call flayouts#LogPatchTab(<f-args>)
 
-command GllogPatchPr            call flayouts#GitLogCurrentFilePr()
-command GllogPatchDiffPr        call flayouts#GitLogCurrentFileDiffPr()
+command GllogPatchPr              call flayouts#LogPatchPr()
+command GllogPatchPrTab           call flayouts#LogPatchPrTab()
 
-command GlopenFromDiff          call flayouts#OpenFromDiff()
+command GlopenFromDiff            call flayouts#OpenFromDiff()
 
-command GlresolveConflict       call flayouts#ConflictView()
-command Glwrite                 call flayouts#Resolve()
+command GlresolveConflictTab      call flayouts#ConflictView()
+command Glwrite                   call flayouts#Resolve()
 
-function! flayouts#StatusView()
+function! flayouts#StatusTab()
   tabedit %
   tabmove
   wincmd v
@@ -54,7 +54,7 @@ function! flayouts#Glc()
   if bufname('%') =~ 'COMMIT_EDITMSG'
     call flayouts#Commit()
   else
-    call flayouts#StatusView()
+    call flayouts#StatusTab()
   endif
 endfunction
 
@@ -67,15 +67,7 @@ function! flayouts#Abort()
   end
 endfunction
 
-function! flayouts#PullRequestView(...)
-  tabedit %
-  tabmove
-  wincmd v
-  wincmd l
-  call call(function("flayouts#PullRequestDiff"), a:000)
-endfunction
-
-function! flayouts#PullRequestDiff(...)
+function! flayouts#PullRequest(...)
   let head_branch = system("git rev-parse --abbrev-ref HEAD")
   let base_branch = exists('a:1') ? a:1 : g:flayouts_base_branch
   silent exe "Git! request-pull -p ".base_branch." ".head_branch
@@ -87,49 +79,59 @@ function! flayouts#PullRequestDiff(...)
   setlocal nomodifiable
 endfunction
 
-function! flayouts#GitLogCurrentFile(...)
-  if &filetype == 'git'
-    let chunk_filename = flayouts#chunk_filename()
-    wincmd s
-    wincmd j
-    exe "e ".chunk_filename
-  else
-    tabedit %
-    tabmove
-    wincmd v
-    wincmd l
-  end
-
-    call call(function("flayouts#GitLogCurrentFileDiff"), a:000)
+function! flayouts#PullRequestTab(...)
+  tabedit %
+  tabmove
+  wincmd v
+  wincmd l
+  call call(function("flayouts#PullRequest"), a:000)
 endfunction
 
-function! flayouts#GitLogCurrentFilePr()
-  if &filetype == 'git'
-    let chunk_filename = flayouts#chunk_filename()
-    wincmd s
-    wincmd j
-    exe "e ".chunk_filename
-  else
-    tabedit %
-    tabmove
-    wincmd v
-    wincmd l
-  end
-
-  call flayouts#GitLogCurrentFileDiffPr()
-endfunction
-
-function! flayouts#GitLogCurrentFileDiff(...)
+function! flayouts#LogPatch(...)
   let number_of_commits = exists('a:1') ? a:1 : 100
   exe "Git! log -p --stat -".number_of_commits." %"
 endfunction
 
-function! flayouts#GitLogCurrentFileDiffPr()
+function! flayouts#LogPatchTab(...)
+  if &filetype == 'git'
+    let chunk_filename = flayouts#chunk_filename()
+    wincmd s
+    wincmd j
+    exe "e ".chunk_filename
+  else
+    tabedit %
+    tabmove
+    wincmd v
+    wincmd l
+  end
+
+    call call(function("flayouts#LogPatch"), a:000)
+endfunction
+
+function! flayouts#LogPatchPr()
   let base_branch = exists('a:1') ? a:1 : g:flayouts_base_branch
   let head_branch = substitute(system("git rev-parse --abbrev-ref HEAD"), "\n", "", "")
 
   exe "Git! log -p --stat ".base_branch."..".head_branch." %"
 endfunction
+
+
+function! flayouts#LogPatchPrTab()
+  if &filetype == 'git'
+    let chunk_filename = flayouts#chunk_filename()
+    wincmd s
+    wincmd j
+    exe "e ".chunk_filename
+  else
+    tabedit %
+    tabmove
+    wincmd v
+    wincmd l
+  end
+
+  call flayouts#LogPatchPr()
+endfunction
+
 
 function! flayouts#ConflictView()
   tabedit %
