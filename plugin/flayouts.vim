@@ -121,10 +121,10 @@ endfunction
 
 function! flayouts#OpenFromDiff()
   mark z
-  let chunk_filename    = flayouts#chunk_filename()
   let chunk_start_line  = flayouts#chunk_start_line()
   let chunk_end_line    = flayouts#chunk_end_line()
-  exe "normal! V'z"
+  let chunk_filename    = flayouts#chunk_filename()
+  exe "normal! 'z"
 
   only
   wincmd v
@@ -136,15 +136,8 @@ function! flayouts#OpenFromDiff()
   exe "normal! V'a"
 endfunction
 
-function! flayouts#chunk_filename()
-  call search('@@','bc')
-  exe "normal! ma"
-  call search('+++','bc')
-  exe "normal! 0f/lvg_y"
-  return @0
-endfunction
-
 function! flayouts#chunk_start_line()
+  call search('^@@','bc')
   call search('\d')
   exe "normal! vf,hy"
   return @0
@@ -152,6 +145,12 @@ endfunction
 
 function! flayouts#chunk_end_line()
   exe "normal! f llf,lvf hy"
+  return @0
+endfunction
+
+function! flayouts#chunk_filename()
+  call search('+++','bc')
+  exe "normal! 0f/lvg_y"
   return @0
 endfunction
 
