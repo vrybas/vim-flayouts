@@ -152,9 +152,6 @@ function! flayouts#OpenFromDiff()
 
   wincmd h
   exe "e ".chunk_filename
-  exe "Gblame"
-  vertical resize 27
-  wincmd l
   exe chunk_start_line
   mark a
   exe 'normal! '.chunk_end_line.'j'
