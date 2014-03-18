@@ -48,11 +48,12 @@ COMMANDS                                        *flayouts-commands*
                       specified as a parameter, or with global configuration
                       variable `g:flayouts_base_branch`
 
-:GllogPatchTab [{number}]                              *flayouts-:GllogPatchTab*
-:GllogPatch [{number}]
+:GllogPatchTab [{number} {path}]             *flayouts-:GllogPatchTab*
+:GllogPatch [{number} {path}]
                       Open new tab with two-window layout. Left window contains
                       current file, right window contains log of {number}
-                      commits of current file. Default is 100 commits.
+                      commits of specified {path}. Default is 100 commits with
+                      no path.
 
 :GlresolveConflictTab                           *flayouts-:GlresolveConflictTab*
                       Open new tab with three-window layout. Top window

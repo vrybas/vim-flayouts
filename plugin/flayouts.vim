@@ -82,8 +82,8 @@ function! flayouts#PullRequestSummaryTab(...)
 endfunction
 
 function! flayouts#LogPatch(...)
-  let filename = exists('a:1') ? a:1 : ''
-  let number_of_commits = exists('a:2') ? a:2 : 100
+  let number_of_commits = exists('a:1') ? a:1 : 100
+  let filename = exists('a:2') ? a:2 : ''
   exe "Git! log -p --stat -".number_of_commits." ".filename
 endfunction
 
