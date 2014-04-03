@@ -43,7 +43,7 @@ function! flayouts#Commit()
     exe "normal! ZZ"
     tabclose
   else
-    echoerr "Warning: not a COMMIT_EDITMSG window. Run :Flstatus instead."
+    echoerr "Warning: not a COMMIT_EDITMSG window. Run :Glstatus instead."
   endif
 endfunction
 
