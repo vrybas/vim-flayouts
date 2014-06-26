@@ -139,19 +139,19 @@ endfunction
 function! flayouts#chunk_start_line()
   call search('^@@','bc')
   call search('\d')
-  exe "normal! vf,hy"
-  return @0
+  exe "normal! vf,h\"zy"
+  return @z
 endfunction
 
 function! flayouts#chunk_end_line()
-  exe "normal! f llf,lvf hy"
-  return @0
+  exe "normal! f llf,lvf h\"zy"
+  return @z
 endfunction
 
 function! flayouts#chunk_filename()
   call search('+++','bc')
-  exe "normal! 0f/lvg_y"
-  return @0
+  exe "normal! 0f/lvg_\"zy"
+  return @z
 endfunction
 
 function! flayouts#tabvsplit()
