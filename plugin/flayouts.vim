@@ -69,7 +69,6 @@ function! flayouts#PullRequestSummary(...)
   let base_branch = exists('a:1') ? a:1 : g:flayouts_base_branch
   silent exe "Git! request-pull -p ".base_branch." ".head_branch
   setlocal modifiable
-  silent exe '$-2,$d z'
   silent exe '1,16d z'
   let header = substitute('Summary of commits between "'.head_branch.'" and "'.base_branch.'"', "\n", "", "")
   call setline(1, header)
