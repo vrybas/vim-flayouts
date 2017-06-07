@@ -25,9 +25,9 @@ layouts for certain operations, such as:
 
 ##### :GlpullRequestSummaryTab - a "Pull Request Review" layout.
 
-- Run `:GlpullRequestSummaryTab`
+- Run `:GlpullRequestSummaryTab origin/master` or `:GlpullRequestCommitsTab origin/master`
 - Review diff
-- Run `:GlopenFromDiff` on code chunk to open corresponding file
+- Run `:GlopenFromDiff` with your cursor on diff chunk to open corresponding file and line
 - Run `:Gblame` to show "git-blame" of current file
 - Press `o` on commit SHA to open commit where chunk was added.
 
