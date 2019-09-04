@@ -33,7 +33,7 @@ command Glwrite                   call flayouts#Resolve()
 
 function! flayouts#StatusTab()
   call flayouts#tabvsplit()
-  exe "Git! diff"
+  exe "0Git diff"
   wincmd h
   exe "Gstatus"
 endfunction
@@ -67,7 +67,7 @@ endfunction
 function! flayouts#PullRequestSummary(...)
   let head_branch = substitute(system("git rev-parse --abbrev-ref HEAD"), "\n", "", "")
   let base_branch = exists('a:1') ? a:1 : g:flayouts_base_branch
-  silent exe "Git! request-pull -p ".base_branch." ".head_branch
+  silent exe "0Git request-pull -p ".base_branch." ".head_branch
   setlocal modifiable
   silent exe '1,16d z'
   let header = substitute('Summary of commits between "'.head_branch.'" and "'.base_branch.'"', "\n", "", "")
@@ -83,7 +83,7 @@ endfunction
 function! flayouts#LogPatch(...)
   let number_of_commits = exists('a:1') ? a:1 : 100
   let filename = exists('a:2') ? a:2 : ''
-  exe "Git! log -p --stat -".number_of_commits." ".filename
+  exe "0Git log -p --stat -".number_of_commits." ".filename
 endfunction
 
 function! flayouts#LogPatchTab(...)
@@ -95,7 +95,7 @@ function! flayouts#PullRequestCommits(...)
   let base_branch = exists('a:1') ? a:1 : g:flayouts_base_branch
   let head_branch = substitute(system("git rev-parse --abbrev-ref HEAD"), "\n", "", "")
 
-  exe "Git! log -p --reverse --stat ".base_branch."..".head_branch
+  exe "0Git log -p --reverse --stat ".base_branch."..".head_branch
 endfunction
 
 function! flayouts#PullRequestCommitsTab(...)
@@ -161,3 +161,4 @@ function! flayouts#tabvsplit()
 endfunction
 
 " vim:set et sw=2:
+
